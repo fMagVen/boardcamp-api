@@ -95,6 +95,21 @@ Post a new game. Guidelines are:
 	categoryId: Id of game category. For a list of possible categories, refer to endpoint GET /categories,
 	pricePerDay: Price of renting. String or number. Price in cents only, so multiply the actual value by 100. E.g.: $100.99 is to be posted as 10099 (no $).
 }
+### `GET /customers/:id`
+Get all customers, optional parameter ```id``` allows you to get specific customer by id
+### `POST /customers`
+Post a new customer. Guidelines are:
+
+{
+
+	name: non empty string,
+	phone: number or string with 10 or 11 numerical digits,
+	cpf: number or string with 11 numerical digits,
+	birthday: date in format YYYY-MM-DD
+
+} 
+### `PUT /customers/:id`
+Update a customer registry data, by id, parameter required. Guidelines are same as above, but cpf can't be repeated, that is, can't be the same.
 
 <br/>
 
