@@ -41,6 +41,19 @@ $ npm install
 ```
 
 Create and populate a `.env` file with the following:
+```bash
+DB_USER=<database username>
+DB_PW=<database username password>
+DB_HOST=<database host, if ran locally that will be localhost>
+DB_PORT=<database port, by defalt, if ran locally, will be 5432>
+DB_NAME=<database name, by default boardcamp>
+
+SERVER_PORT=<port with which to start the server>
+
+#alternatively, through a connection string:
+
+CONNECTION_STRING=postgresql://<DB_USER>:<DB_PW>@<DB_HOST>:<DB_PORT>/<DB_NAME>
+```
 
 ### Creating and populating the database
 
