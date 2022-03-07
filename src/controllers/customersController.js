@@ -1,14 +1,18 @@
 import connection from "../database/db.js";
+import dayjs from "dayjs";
 
 const getAllCustomers = async (req, res) => {
 	try{
-		const cpf = req.query.cpf
-		if(cpf){
-			const customers = await connection.query('SELECT * FROM customers WHERE cpf LIKE $1%', [cpf])
-			res.status(200).send(customers.rows)
+		if(req.query.cpf){
+			const customer = await connection.query(`SELECT * FROM customers WHERE cpf LIKE $1`, [`%${req.query.cpf}`])
+			customer.rows[0].birthday = dayjs(customer.rows[0].birthday).format('YYYY-MM-DD')
+			res.status(200).send(customer.rows)
 		}
 		else{
 			const customers = await connection.query('SELECT * FROM customers')
+			for(let i = 0; i < customers.rows.length; i++){
+				customers.rows[i].birthday = dayjs(customers.rows[i].birthday).format('YYYY-MM-DD')
+			}
 			res.status(200).send(customers.rows)
 		}
 	}catch(error){
@@ -23,6 +27,7 @@ const getCustomerById = async (req, res) => {
 		if(customer.rowCount == 0){
 			return res.status(404).send('Customer not found!')
 		}
+		customer.rows[0].birthday = dayjs(customer.rows[0].birthday).format('YYYY-MM-DD')
 		res.status(200).send(customer.rows)
 	}catch(error){
 		console.log(error)
