@@ -110,7 +110,27 @@ Post a new customer. Guidelines are:
 } 
 ### `PUT /customers/:id`
 Update a customer registry data, by id, parameter required. Guidelines are same as above, but cpf can't be repeated, that is, can't be the same.
+### `GET /rentals`
+Get all rentals data, each entry contains which game rented by whom
 
+### `POST /rentals`
+Post a new rental entry, guidelines are:
+
+{
+
+	customerId: id of customer that rented,
+	gameId: id of game rented,
+	daysRented: number of days the game was rented
+
+}
+
+The API will automatically fill the current date, customer, game and game category data by id
+
+### `POST /rentals/:id/return`
+Marks a rental entry as returned. Required the entry id as parameter. The API will automatically fill the return date and, if the return is delayed, calculate the delay fee
+
+### `DELETE /rentals/:id`
+Deletes a rental entry by id parameter. Entry must not be closed.
 <br/>
 
 <br/>
