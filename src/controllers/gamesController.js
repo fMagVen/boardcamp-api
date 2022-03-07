@@ -2,6 +2,10 @@ import connection from "../database/db.js"
 
 const getGames = async (req, res) => {
 	try{
+		if(req.query.name){
+			const games = await connection.query('SELECT games.*, categories.name as "categoryName" FROM games JOIN categories ON games."categoryId"=categories.id WHERE games.name ILIKE $1', [`%${req.query.name}%`])
+			return res.status(200).send(games.rows)
+		}
 		const games = await connection.query('SELECT games.*, categories.name as "categoryName" FROM games JOIN categories ON games."categoryId"=categories.id')
 		res.status(200).send(games.rows)
 	}catch(error){
