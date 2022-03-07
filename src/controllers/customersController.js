@@ -4,7 +4,14 @@ import dayjs from "dayjs";
 const getAllCustomers = async (req, res) => {
 	try{
 		if(req.query.cpf){
-			const customer = await connection.query(`SELECT * FROM customers WHERE cpf LIKE $1`, [`%${req.query.cpf}`])
+			const customer = await connection.query(`
+			SELECT * 
+			FROM customers 
+			WHERE cpf 
+			LIKE $1`, [`${req.query.cpf}%`])
+			if(customer.rowCount == 0){
+				return res.status(404).send('No cpf matches that start with that entry')
+			}
 			customer.rows[0].birthday = dayjs(customer.rows[0].birthday).format('YYYY-MM-DD')
 			res.status(200).send(customer.rows)
 		}

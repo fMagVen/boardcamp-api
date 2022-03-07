@@ -83,20 +83,25 @@ Endpoints:
 Get all categories of games
 ### `POST /categories`
 Post a new category. Request must be of format: { name: 'category-name' }
-### `GET /games`
-Get all available games with info on game name, display picture, quantity available for renting, price and category.
+### `GET /games?name=[string]`
+Get all available games with info on game name, display picture, quantity available for renting, price and category. Optional query string to get games starting with name [```string```], case insensitive.
 ### `POST /games`
 Post a new game. Guidelines are:
 
 {
 
-	name: 'non empty string',
+	name: non empty string,
+
+	image: string containing image in a url. supported formats: png, jpg, jpeg, jfif, gif
+
 	stockTotal: Total amount of units available for rental. Accepts strings and numbers,
+
 	categoryId: Id of game category. For a list of possible categories, refer to endpoint GET /categories,
+
 	pricePerDay: Price of renting. String or number. Price in cents only, so multiply the actual value by 100. E.g.: $100.99 is to be posted as 10099 (no $).
 }
-### `GET /customers/:id`
-Get all customers, optional parameter ```id``` allows you to get specific customer by id
+### `GET /customers/:id or /customers?cpf=[number]`
+Get all customers, optional parameter ```id``` allows you to get specific customer by id and optional query string ```cpf``` allows to get by cpf starting with [```number```]
 ### `POST /customers`
 Post a new customer. Guidelines are:
 
